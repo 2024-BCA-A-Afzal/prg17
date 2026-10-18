@@ -4,6 +4,25 @@ function cartReducer(state, action) {
       const existing = state.find(
         (item) => item.id === action.payload
       );
+      case "DECREASE": {
+  const existing = state.find(
+    (item) => item.id === action.payload
+  );
+
+  if (!existing) return state;
+
+  if (existing.quantity <= 1) {
+    return state.filter(
+      (item) => item.id !== action.payload
+    );
+  }
+
+  return state.map((item) =>
+    item.id === action.payload
+      ? { ...item, quantity: item.quantity - 1 }
+      : item
+  );
+}
 
       if (!existing) return state;
 
